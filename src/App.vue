@@ -2,7 +2,7 @@
   <div class="container pt-1">
     <todo-header />
     <todo-form @create="addNote" />
-    <todo-notes :notes="notes" />
+    <todo-notes v-if="notes.length" :notes="notes" @remove="removeNote"/>
   </div>
 </template>
 
@@ -22,6 +22,9 @@ export default {
   methods: {
     addNote(note) {
       this.notes.push(note)
+    },
+    removeNote(idx) {
+      this.notes.splice(idx, 1)
     }
   },
   components: {TodoHeader, TodoForm, TodoNotes}
@@ -29,5 +32,7 @@ export default {
 </script>
 
 <style>
-
+.card {
+  margin-bottom: 1rem;
+}
 </style>
