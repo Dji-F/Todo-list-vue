@@ -1,13 +1,13 @@
 <template>
   <div class="card">
-    <div class="card-note" v-for="(note, idx) in notes">
+    <div class="card-note" v-for="note in notes" :key="note.id">
       <div>
         <h3>{{ note.title }}</h3>
         <div>{{ note.body }}</div>
       </div>
       <div>
-        <button class="btn">Save</button>
-        <button class="btn danger" @click="$emit('remove', idx)">Delete</button>
+        <button class="btn" @click="$emit('save', note)">Save</button>
+        <button class="btn danger" @click="$emit('remove', note.id)">Delete</button>
       </div>
     </div>
   </div>
@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  emits: ['remove', 'save'],
   props: {
     notes: Array
   }
@@ -30,6 +31,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   &:last-child {
     margin-bottom: 0;
   }
