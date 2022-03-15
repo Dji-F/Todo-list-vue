@@ -8,7 +8,11 @@
     <div class="form-control">
       <label for="bodyEnter">Text</label>
       <input type="text" id="bodyEnter" v-model.trim="note.body" />
-      <button class="btn" @click="createNote">Create</button>
+      <button
+          class="btn"
+          @click="createNote"
+          :disabled="note.title.length < 4 || note.body.length < 4"
+      >Create</button>
     </div>
 
   </div>
