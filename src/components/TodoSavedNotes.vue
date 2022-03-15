@@ -1,15 +1,19 @@
 <template>
-  <TodoLoader v-if="false" />
-  <div class="card">
-    <div class="card-note">
+  <TodoLoader v-if="loading" />
+  <div class="card" v-else>
+    <div class="card-note" v-if="savedNotes.length" v-for="note in savedNotes" :key="note.dataID">
       <div>
-        <h3>Title</h3>
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, tenetur?</div>
+        <h3>{{ note.title }}</h3>
+        <div>{{ note.body }}</div>
       </div>
       <div>
         <button class="btn">Edit</button>
-        <button class="btn danger">Delete</button>
+        <button class="btn danger" @click="$emit('remove', note.dataID)">Delete</button>
       </div>
+    </div>
+    <div v-else>
+      <h2 v-if="listEmpty">You didn't save anything.</h2>
+      <button class="btn primary" @click="$emit('load')" :disabled="listEmpty">Download List</button>
     </div>
   </div>
 </template>
@@ -17,7 +21,13 @@
 <script>
 import TodoLoader from '@/UI/TodoLoader'
 export default {
-  components: {TodoLoader}
+  components: {TodoLoader},
+  emits: ['load', 'remove'],
+  props: {
+    loading: Boolean,
+    savedNotes: Array,
+    listEmpty: Boolean
+  }
 }
 </script>
 
