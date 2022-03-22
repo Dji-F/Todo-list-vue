@@ -1,5 +1,6 @@
 import {createStore, createLogger} from 'vuex'
 import auth from './modules/auth'
+import note from './modules/note.module'
 
 const plugins = []
 
@@ -25,12 +26,9 @@ export default createStore({
   actions: {
     setMessage({commit}, message) {
       commit('setMessage', message)
-      setTimeout(() => {
-        commit('clearMessage')
-      }, 10000)
     }
   },
   modules: {
-    auth
+    auth, note
   }
 })
