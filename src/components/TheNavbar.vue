@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <h1>Todo List</h1>
+    <h3>Todo List</h3>
 
     <ul class="navbar-menu">
       <li>
