@@ -19,7 +19,7 @@
         </td>
         <td><AppStatus :type="note.status" /></td>
         <td>
-          <router-link v-slot="{navigate}" custom :to="{name: Note, params: {id: note.id}}">
+          <router-link v-slot="{navigate}" custom :to="{name: 'Note', params: {id: note.id}}">
             <button class="btn primary" @click="navigate">Open</button>
           </router-link>
         </td>

@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+    <router-link v-if="back" to="/" v-text="'<-- Back'"></router-link>
     <h1 class="card-title">
       {{ title }}
       <slot name="header" />
@@ -15,6 +16,10 @@ export default {
     title: {
       type: String,
       required: true
+    },
+    back: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {

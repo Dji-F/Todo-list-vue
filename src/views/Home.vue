@@ -43,7 +43,6 @@ export default {
 
     const notes = computed(() => store.getters['note/notes']
       .filter(note => {
-        console.log(note.title.includes(filter.value.name))
         if (filter.value.name) {
           return note.title.includes(filter.value.name)
         }

@@ -22,6 +22,15 @@ const routes = [
     }
   },
   {
+    path: '/note/:id',
+    name: 'Note',
+    component: () => import('../views/Note.vue'),
+    meta: {
+      layout: 'main',
+      auth: true
+    }
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import('../views/Auth'),
