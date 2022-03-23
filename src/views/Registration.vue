@@ -1,6 +1,6 @@
 <template>
   <form class="card" @submit.prevent="onSubmit">
-    <h1>Enter email and password to login</h1>
+    <h1>Registration</h1>
 
     <div :class="['form-control', {invalid: emailError}]">
       <label for="email">Email</label>
@@ -14,10 +14,7 @@
       <small v-if="passError">{{ passError }}</small>
     </div>
 
-    <button class="btn primary" type="submit" :disabled="isSubmitting || isTooManyTries">Sign in</button>
-    <router-link v-slot="{navigate}" custom :to="{name: 'Reg'}">
-      <button type="button" class="btn" @click="{navigate}">New user</button>
-    </router-link>
+    <button class="btn primary" type="submit" :disabled="isSubmitting || isTooManyTries">Create user</button>
     <div class="text-danger" v-if="isTooManyTries">
       You press the button too often.
     </div>
@@ -28,7 +25,7 @@
 import {useRoute} from 'vue-router'
 import {useStore} from 'vuex'
 import {error} from '@/utils/error'
-import {useLoginForm} from '@/use/login-form'
+import {useLoginForm} from '@/use/reg-form'
 
 export default {
   setup() {
