@@ -45,6 +45,44 @@ export default {
                     type: 'danger'
                 }, {root: true})
             }
+        },
+        async loadOne({dispatch}, id) {
+            try {
+                const token = store.getters['auth/token']
+                const {data} = await axios.get(`/notes/${id}.json?auth=${token}`)
+                return data
+            } catch (e) {
+                dispatch('setMessage', {
+                    value: e.message,
+                    type: 'danger'
+                }, {root: true})
+            }
+        },
+        async remove({dispatch}, id) {
+            try {
+                const token = store.getters['auth/token']
+                await axios.delete(`/notes/${id}.json?auth=${token}`)
+            } catch (e) {
+                dispatch('setMessage', {
+                    value: e.message,
+                    type: 'danger'
+                }, {root: true})
+            }
+        },
+        async update({dispatch}, note) {
+            try {
+                const token = store.getters['auth/token']
+                await axios.put(`/notes/${note.id}.json?auth=${token}`, note)
+                dispatch('setMessage', {
+                    value: 'Note updated successfully!',
+                    type: 'primary'
+                }, {root: true})
+            } catch (e) {
+                dispatch('setMessage', {
+                    value: e.message,
+                    type: 'danger'
+                }, {root: true})
+            }
         }
     },
     getters: {
