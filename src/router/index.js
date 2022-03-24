@@ -38,15 +38,6 @@ const routes = [
       layout: 'auth',
       auth: false
     }
-  },
-  {
-    path: '/registration',
-    name: 'Reg',
-    component: () => import('../views/Registration'),
-    meta: {
-      layout: 'auth',
-      auth: false
-    }
   }
 ]
 

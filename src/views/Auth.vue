@@ -15,25 +15,32 @@
     </div>
 
     <button class="btn primary" type="submit" :disabled="isSubmitting || isTooManyTries">Sign in</button>
-    <router-link v-slot="{navigate}" custom :to="{name: 'Reg'}">
-      <button type="button" class="btn" @click="{navigate}">New user</button>
-    </router-link>
+    <button type="button" class="btn" @click="modal = true">New user</button>
     <div class="text-danger" v-if="isTooManyTries">
       You press the button too often.
     </div>
   </form>
+  <teleport to="body">
+    <app-modal v-if="modal" title="Registration" @close="modal = false">
+      <RegModal @created="modal = false"/>
+    </app-modal>
+  </teleport>
 </template>
 
 <script>
 import {useRoute} from 'vue-router'
 import {useStore} from 'vuex'
+import {ref} from 'vue'
 import {error} from '@/utils/error'
 import {useLoginForm} from '@/use/login-form'
+import AppModal from '@/components/ui/AppModal'
+import RegModal from '@/components/registration/RegModal'
 
 export default {
   setup() {
     const route = useRoute()
     const store = useStore()
+    const modal = ref(false)
 
     if (route.query.message) {
       store.dispatch('setMessage', {
@@ -42,8 +49,9 @@ export default {
       })
     }
 
-    return {...useLoginForm()}
-  }
+    return {...useLoginForm(), modal}
+  },
+  components: {AppModal, RegModal}
 }
 </script>
 
