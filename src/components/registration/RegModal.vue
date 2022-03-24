@@ -4,9 +4,11 @@
     <div :class="['form-control', {invalid: emailError}]">
       <label for="email">Email</label>
       <input type="email" id="email" v-model="email" @blur="emailBlur">
-      <button class="btn" type="button" @click="hasEmail(email)">Verification</button>
-      <small v-if="emailError">{{ emailError }}</small>
-      <small v-else-if="message" :class="type === 'primary' ? type : ''">{{ message }}</small>
+      <div>
+        <small v-if="emailError">{{ emailError }}</small>
+        <small v-else-if="message" :class="type === 'primary' ? type : ''">{{ message }}</small>
+      </div>
+      <button class="btn verification" type="button" @click="hasEmail(email)">Verification</button>
     </div>
 
     <div :class="['form-control', {invalid: passError}]">
@@ -62,5 +64,7 @@ export default {
 </script>
 
 <style scoped>
-
+.verification {
+  margin-top: 0.1rem;
+}
 </style>

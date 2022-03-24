@@ -142,6 +142,10 @@ h3 {
     padding-top: 5rem;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .box-text {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -174,7 +178,7 @@ h3 {
     color: #e53935;
 }
 
-.for-control small.primary {
+.form-control small.primary {
     color: #42b983;
 }
 

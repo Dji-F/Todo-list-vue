@@ -26,6 +26,7 @@ import AppModal from '@/components/ui/AppModal'
 import NoteModal from '@/components/notes/NoteModal'
 import AppLoader from '@/components/ui/AppLoader'
 import NoteFilter from '@/components/notes/NoteFilter'
+import {toLowerCase} from '@/utils/functions'
 
 export default {
   name: 'Home',
@@ -44,7 +45,7 @@ export default {
     const notes = computed(() => store.getters['note/notes']
       .filter(note => {
         if (filter.value.name) {
-          return note.title.includes(filter.value.name)
+          return toLowerCase(note.title).includes(toLowerCase(filter.value.name))
         }
         return note
       })

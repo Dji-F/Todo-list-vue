@@ -5,7 +5,7 @@ export default {
     namespaced: true,
     state() {
         return {
-            message: {value: 123}
+            message: {}
         }
     },
     mutations: {
@@ -13,7 +13,7 @@ export default {
             state.message = message
         },
         clearMessage(state) {
-            state.message = null
+            state.message = {}
         }
     },
     actions: {

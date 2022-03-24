@@ -30,7 +30,7 @@
 <script>
 import {useRoute} from 'vue-router'
 import {useStore} from 'vuex'
-import {ref} from 'vue'
+import {ref, watch} from 'vue'
 import {error} from '@/utils/error'
 import {useLoginForm} from '@/use/login-form'
 import AppModal from '@/components/ui/AppModal'
@@ -48,6 +48,12 @@ export default {
         type: 'warning'
       })
     }
+
+    watch(modal, val => {
+      if (!val) {
+        store.commit('reg/clearMessage')
+      }
+    })
 
     return {...useLoginForm(), modal}
   },
