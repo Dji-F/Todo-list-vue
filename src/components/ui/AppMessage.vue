@@ -7,11 +7,13 @@
 </template>
 
 <script>
+import {useRoute} from 'vue-router'
 import {useStore} from 'vuex'
-import {computed} from 'vue'
+import {computed, watch} from 'vue'
 
 export default {
   setup() {
+    const route = useRoute()
     const store = useStore()
 
     const TITLE_MAP = {
@@ -20,9 +22,17 @@ export default {
       warning: 'Warning!'
     }
 
+    const thisRoute = computed(() => route.path)
+
     const message = computed(() => store.state.message)
 
     const title = computed(() => message.value ? TITLE_MAP[message.value.type] : null)
+
+    watch(thisRoute, (newVal, oldVal) => {
+      if (newVal !== oldVal) {
+        store.commit('clearMessage')
+      }
+    })
 
     return {
       message,

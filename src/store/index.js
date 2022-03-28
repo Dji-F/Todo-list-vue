@@ -13,8 +13,7 @@ export default createStore({
   plugins,
   state() {
     return {
-      message: null,
-
+      message: null
     }
   },
   mutations: {

@@ -11,9 +11,8 @@ import QuestionItem from '@/components/question/QuestionItem'
 export default {
   setup() {
     const questions = [
-      {title: 'What can this app do?', body: 'It can add new notes.'},
-      {title: 'What can this app do', body: 'It can add new nots.'},
-      {title: 'What can thiapp do?', body: 'It can a new notes.'}
+      {title: 'What can this app do?', body: 'It can add new notes, modify the created note.'},
+      {title: 'How is it implemented?', body: 'This is implemented with firebase.'}
     ]
 
     return {questions}

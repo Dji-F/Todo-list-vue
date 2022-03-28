@@ -3,6 +3,9 @@
     <h3>Todo List</h3>
 
     <ul class="navbar-menu">
+      <span style="margin-right: 3rem">
+        <a href="https://github.com/Dji-F/Todo-list-vue" target="_blank">Source code on Github</a>
+      </span>
       <li>
         <router-link to="/">Main</router-link>
       </li>
