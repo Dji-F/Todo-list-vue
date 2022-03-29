@@ -5,6 +5,15 @@ import {computed, watch} from 'vue'
 export function useRegForm(fn) {
     const {handleSubmit, isSubmitting, submitCount} = useForm()
 
+    const {value: name, errorMessage: nameError, handleBle: nameBlur} = useField(
+        'name',
+        yup
+            .string()
+            .trim()
+            .required()
+            .min(2)
+    )
+
     const {value: email, errorMessage: emailError, handleBlur: emailBlur} = useField(
         'email',
         yup
@@ -35,10 +44,13 @@ export function useRegForm(fn) {
     return {
         email,
         password,
+        name,
         emailError,
         passError,
+        nameError,
         emailBlur,
         passBlur,
+        nameBlur,
         onSubmit,
         isSubmitting,
         isTooManyTries

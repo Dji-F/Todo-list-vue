@@ -20,14 +20,10 @@ export default {
         setMessage({commit}, message) {
             commit('setMessage', message)
         },
-        async newUser({commit, dispatch}, payload) {
+        async newUser({commit, dispatch}, {name, email, password}) {
             try {
                 const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FB_KEY}`
-                const {data} = await axios.post(url, {...payload, returnSecureToken: true})
-                dispatch('setMessage', {
-                    value: 'This email is not busy.',
-                    type: 'primary'
-                })
+                await axios.post(url, {email, password, displayName: name, returnSecureToken: true})
             } catch (e) {
                 dispatch('setMessage', {
                     value: error(e.response.data.error.message),

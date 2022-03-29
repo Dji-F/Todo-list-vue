@@ -1,22 +1,22 @@
 import axios from 'axios'
 import {error} from '@/utils/error'
-const TOKEN_KEY = 'jwt-token'
+const DATA_USER = 'data-user'
 
 export default {
     namespaced: true,
     state() {
         return {
-            token: localStorage.getItem(TOKEN_KEY)
+            user: JSON.parse(localStorage.getItem(DATA_USER))
         }
     },
     mutations: {
-      setToken(state, token) {
-          state.token = token
-          localStorage.setItem(TOKEN_KEY, token)
+      setDataUser(state, userData) {
+        state.user = userData
+        localStorage.setItem(DATA_USER, JSON.stringify(userData))
       },
       logout(state) {
-        state.token = null
-        localStorage.removeItem(TOKEN_KEY)
+          state.name = null
+          localStorage.removeItem(DATA_USER)
       }
     },
     actions: {
@@ -24,7 +24,12 @@ export default {
             try {
                 const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.VUE_APP_FB_KEY}`
                 const {data} = await axios.post(url, {...payload, returnSecureToken: true})
-                commit('setToken', data.idToken)
+                console.log(data)
+                commit('setDataUser', {
+                    id: data.localId,
+                    name: data.displayName,
+                    token: data.idToken
+                })
             } catch (e) {
                 dispatch('setMessage', {
                     value: error(e.response.data.error.message),
@@ -35,11 +40,11 @@ export default {
         }
     },
     getters: {
-        token(state) {
-            return state.token
+        user(state) {
+            return state.user
         },
         isAuthenticated(_, getters) {
-            return !!getters.token
+            return !!getters.user
         }
     }
 }

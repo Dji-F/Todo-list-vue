@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {ref, computed, onMounted} from 'vue'
+import {ref, computed, onMounted, onUpdated} from 'vue'
 import {useStore} from 'vuex'
 import AppPage from '@/components/ui/AppPage'
 import NoteBlock from '@/components/notes/NoteBlock'

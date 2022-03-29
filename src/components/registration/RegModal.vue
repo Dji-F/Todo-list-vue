@@ -1,6 +1,12 @@
 <template>
   <form class="card" @submit.prevent="onSubmit">
 
+    <div :class="['form-control', {invalid: nameError}]">
+      <label for="name">Name</label>
+      <input type="text" id="name" v-model="name" @blur="nameBlur">
+      <small v-if="nameError">{{ nameError }}</small>
+    </div>
+
     <div :class="['form-control', {invalid: emailError}]">
       <label for="email">Email</label>
       <input type="email" id="email" v-model="email" @blur="emailBlur">
@@ -41,7 +47,6 @@ export default {
 
     const submit = async values => {
       try {
-        console.log('Form reg', values)
         await store.dispatch('reg/newUser', values)
         emit('created')
       } catch (e) {

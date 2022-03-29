@@ -19,8 +19,8 @@ export default {
     actions: {
         async create({commit, dispatch}, payload) {
             try {
-                const token = store.getters['auth/token']
-                const {data} = await axios.post(`/notes.json?auth=${token}`, payload)
+                const user = store.getters['auth/user']
+                const {data} = await axios.post(`/users/${user.id}/notes.json?auth=${user.token}`, payload)
                 commit('addNote', {...payload, id: data.name})
                 dispatch('setMessage', {
                     value: 'Note successfully created.',
@@ -35,8 +35,8 @@ export default {
         },
         async load({commit, dispatch}) {
             try {
-                const token = store.getters['auth/token']
-                const {data} = await axios.get(`/notes.json?auth=${token}`)
+                const user = store.getters['auth/user']
+                const {data} = await axios.get(`/users/${user.id}/notes.json?auth=${user.token}`)
                 const notes = Object.keys(data).map(id => ({...data[id], id}))
                 commit('setNotes', notes)
             } catch (e) {
@@ -48,8 +48,8 @@ export default {
         },
         async loadOne({dispatch}, id) {
             try {
-                const token = store.getters['auth/token']
-                const {data} = await axios.get(`/notes/${id}.json?auth=${token}`)
+                const user = store.getters['auth/user']
+                const {data} = await axios.get(`/users/${user.id}/notes/${id}.json?auth=${user.token}`)
                 return data
             } catch (e) {
                 dispatch('setMessage', {
@@ -60,8 +60,8 @@ export default {
         },
         async remove({dispatch}, id) {
             try {
-                const token = store.getters['auth/token']
-                await axios.delete(`/notes/${id}.json?auth=${token}`)
+                const user = store.getters['auth/user']
+                await axios.delete(`/users/${user.id}/notes/${id}.json?auth=${user.token}`)
             } catch (e) {
                 dispatch('setMessage', {
                     value: e.message,
@@ -71,8 +71,8 @@ export default {
         },
         async update({dispatch}, note) {
             try {
-                const token = store.getters['auth/token']
-                await axios.put(`/notes/${note.id}.json?auth=${token}`, note)
+                const user = store.getters['auth/user']
+                await axios.put(`/users/${user.id}/notes/${note.id}.json?auth=${user.token}`, note)
                 dispatch('setMessage', {
                     value: 'Note updated successfully!',
                     type: 'primary'
