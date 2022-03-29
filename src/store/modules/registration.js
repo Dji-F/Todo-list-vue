@@ -24,6 +24,10 @@ export default {
             try {
                 const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.VUE_APP_FB_KEY}`
                 await axios.post(url, {email, password, displayName: name, returnSecureToken: true})
+                dispatch('setMessage', {
+                    value: 'Registration was successful, now you can log in.',
+                    type: 'primary'
+                }, {root: true})
             } catch (e) {
                 dispatch('setMessage', {
                     value: error(e.response.data.error.message),

@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <h3>Todo List</h3>
+    <h3>Todo List<span><small>{{ name }}</small></span></h3>
 
     <ul class="navbar-menu">
       <span style="margin-right: 3rem">
@@ -22,22 +22,32 @@
 <script>
 import {useRouter} from 'vue-router'
 import {useStore} from 'vuex'
+import {computed} from 'vue'
 
 export default {
   setup() {
     const router = useRouter()
     const store = useStore()
 
+    const name = computed(() => store.getters['auth/user'].name)
+
     return {
       logout: () => {
         store.commit('auth/logout')
         router.push('/auth')
-      }
+      },
+      name
     }
   }
 }
 </script>
 
 <style scoped>
+h3 {
+  display: flex;
+}
 
+h3 span {
+  font: initial;
+}
 </style>

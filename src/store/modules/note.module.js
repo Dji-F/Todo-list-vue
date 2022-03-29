@@ -40,10 +40,14 @@ export default {
                 const notes = Object.keys(data).map(id => ({...data[id], id}))
                 commit('setNotes', notes)
             } catch (e) {
-                dispatch('setMessage', {
-                    value: e.message,
-                    type: 'danger'
-                }, {root: true})
+                if (e.message === 'Cannot convert undefined or null to object') {
+                    return null
+                } else {
+                    dispatch('setMessage', {
+                        value: e.message,
+                        type: 'danger'
+                    }, {root: true})
+                }
             }
         },
         async loadOne({dispatch}, id) {
